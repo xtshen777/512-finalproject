@@ -1,56 +1,105 @@
-# config.py
 import board
 
-# 旋钮引脚
+# ----------------------------------------
+# Rotary Encoder Pin Assignments
+# ----------------------------------------
+# Quadrature encoder output pins A and B.
+# Values are read to detect clockwise and counterclockwise rotation.
 ENCODER_PIN_A = board.D1
 ENCODER_PIN_B = board.D2
-ENCODER_BUTTON = board.D9   # 旋钮按下开关
 
-# NeoPixel 引脚
+# Encoder push-button (active low).
+# This is used for both the MENU long-press confirmation
+# and the in-game "PRESS" action.
+ENCODER_BUTTON = board.D9
+
+
+# ----------------------------------------
+# NeoPixel Configuration
+# ----------------------------------------
+# RGB LED pin and count.
+# These LEDs are used for game feedback:
+# - Rainbow for splash/menu
+# - Color-coded move indications
+# - Red for game over, etc.
 NEOPIXEL_PIN = board.D10
 NEOPIXEL_COUNT = 4
 
-# 难度设定
+
+# ----------------------------------------
+# Difficulty Settings
+# ----------------------------------------
+# Each difficulty defines:
+# - base_moves: number of moves in Level 1
+# - level_time: total time budget per level
+#
+# Each subsequent level increases move count by +1.
+# Per-move time = level_time / number_of_moves.
 DIFFICULTIES = {
     "EASY": {
-        "base_moves": 2,     # Level 1 有 2 个动作
-        "level_time": 60.0,  # 每關總時間 15 秒
+        "base_moves": 2,      # Level 1 contains 2 actions
+        "level_time": 60.0,   # Total time allowed for each level
     },
     "MEDIUM": {
-        "base_moves": 4,     # Level 1 有 4 個動作
-        "level_time": 60.0,  # 每關總時間 20 秒
+        "base_moves": 4,      # Level 1 contains 4 actions
+        "level_time": 60.0,   # Total time allowed for each level
     },
     "HARD": {
-        "base_moves": 6,     # Level 1 有 6 個動作
-        "level_time": 120.0,  # 每關總時間 25 秒
+        "base_moves": 6,      # Level 1 contains 6 actions
+        "level_time": 120.0,  # Total time allowed for each level
     },
 }
 
+# Number of levels per difficulty
 TOTAL_LEVELS = 10
 
-# 动作常量
-MOVE_CW = "ROTATE_RIGHT"   # 右转
-MOVE_CCW = "ROTATE_LEFT"   # 左转
-MOVE_PRESS = "PRESS"       # 按下旋钮
-MOVE_SHAKE = "SHAKE"       # 摇晃
 
+# ----------------------------------------
+# Move Identifiers
+# ----------------------------------------
+# These string constants are used by the game engine
+# to match player input with the expected action.
+MOVE_CW = "ROTATE_RIGHT"   # Clockwise rotation
+MOVE_CCW = "ROTATE_LEFT"   # Counter-clockwise rotation
+MOVE_PRESS = "PRESS"       # Encoder button press
+MOVE_SHAKE = "SHAKE"       # Accelerometer shake gesture
+
+# The set of all possible actions the game may generate
 ALL_MOVES = [MOVE_CW, MOVE_CCW, MOVE_PRESS, MOVE_SHAKE]
 
-# 摇晃检测參數
-# 你的數據裡，桌面的小抖動常常在 3～7 之間
-# 所以把門檻設得非常高，只把「很用力的大晃動」算作 SHAKE
-SHAKE_DELTA_THRESHOLD = 2.0   # 超過 10 才有機會判定為 SHAKE
-SHAKE_MAX_DELTA = 100.0        # 大於 35 當成異常尖峰，直接忽略
-SHAKE_COOLDOWN = 0.3         # 一次 SHAKE 成功後 0.6 秒內不再觸發
+
+# ----------------------------------------
+# Shake Detection Parameters
+# ----------------------------------------
+# Based on collected accelerometer samples:
+# - Normal resting noise frequently falls between ~0.1–1.0
+# - Desk vibration spikes can reach 3–7
+# To reliably detect only intentional strong shakes,
+# a high threshold is required.
+SHAKE_DELTA_THRESHOLD = 2.0     # Minimum delta magnitude required to count as a shake
+SHAKE_MAX_DELTA = 100.0         # Discard extreme spikes as sensor noise or error
+SHAKE_COOLDOWN = 0.3            # Prevent repeated triggering from a single shake
 
 
-# 旋钮冷却时间 秒
+# ----------------------------------------
+# Rotary Encoder Cooldown
+# ----------------------------------------
+# Prevent multiple rotation events being triggered
+# from a single physical detent or due to bouncing.
 ROTATE_COOLDOWN = 0.5
 
-# 菜单里长按多少秒才开始游戏
+
+# ----------------------------------------
+# Menu Press Hold Time
+# ----------------------------------------
+# Duration the encoder button must be held
+# in the difficulty menu to start the game.
 MENU_PRESS_HOLD = 0.2
 
-# 游戏中两次动作之间的冷却时间
-ACTION_COOLDOWN = 0.25   # 可以之后按手感微调
 
-
+# ----------------------------------------
+# In-Game Move Cooldown
+# ----------------------------------------
+# Prevents a single gesture from being interpreted
+# as multiple valid actions in rapid succession.
+ACTION_COOLDOWN = 0.25
