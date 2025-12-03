@@ -38,15 +38,15 @@ NEOPIXEL_COUNT = 4
 DIFFICULTIES = {
     "EASY": {
         "base_moves": 2,      # Level 1 contains 2 actions
-        "level_time": 60.0,   # Total time allowed for each level
+        "level_time": 15.0,   # Total time allowed for each level
     },
     "MEDIUM": {
         "base_moves": 4,      # Level 1 contains 4 actions
-        "level_time": 60.0,   # Total time allowed for each level
+        "level_time": 20.0,   # Total time allowed for each level
     },
     "HARD": {
         "base_moves": 6,      # Level 1 contains 6 actions
-        "level_time": 120.0,  # Total time allowed for each level
+        "level_time": 30.0,  # Total time allowed for each level
     },
 }
 
