@@ -84,9 +84,9 @@ Each difficulty determines both the starting number of moves per level and the t
 
 | Difficulty | Level 1 | Level 10 | Total Time per Level |
 | ---------- | --------| -------- | -------------------- |
-| **Easy**   | 2 moves | 12 moves | **15 seconds**       |
+| **Easy**   | 2 moves | 12 moves | **20 seconds**       |
 | **Medium** | 4 moves | 14 moves | **20 seconds**       |
-| **Hard**   | 6 moves | 16 moves | **30 seconds**       |
+| **Hard**   | 6 moves | 16 moves | **20 seconds**       |
 
 Each new level adds one more move, extending the sequence and reducing time per move.
 
