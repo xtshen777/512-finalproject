@@ -28,6 +28,12 @@ The game also includes animated startup spash, colorful NeoPixel feedback, and m
 │   ├── game_engine.py
 │   ├── config.py
 │   └── lib/                  # Any CircuitPython libraries used
+│       ├── adafruit_adxl34x.mpy
+│       ├── adafruit_displayio_ssd1306.mpy
+│       ├── neopixel_spi.mpy
+│       ├── neopixel.mpy
+│       ├── rainbow.mpy
+│       └── adafruit_bus_device/    
 │
 └── Documentation/            # Circuit Diagram + System Diagram
     ├── Circuit Diagram.jpg
